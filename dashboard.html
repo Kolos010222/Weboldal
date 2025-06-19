@@ -1,45 +1,74 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hu">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard</title>
   <style>
+    :root {
+      --bg-color: #f2f2f2;
+      --text-color: #333;
+      --box-bg: #ffffffcc;
+      --button-bg: #007acc;
+      --button-hover: #005fa3;
+      --upload-border: #0077cc;
+      --upload-hover: white;
+    }
+
+    body.dark {
+      --bg-color: #1e1e1e;
+      --text-color: #f0f0f0;
+      --box-bg: #2b2b2bcc;
+      --button-bg: #444;
+      --button-hover: #666;
+      --upload-border: #aaa;
+      --upload-hover: #222;
+    }
+
     body {
+      background: var(--bg-color);
+      color: var(--text-color);
       font-family: Arial, sans-serif;
       margin: 0;
-      background: #f2f2f2;
       padding: 20px;
+      transition: 0.3s;
     }
 
     header {
       display: flex;
       justify-content: flex-end;
       gap: 10px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     .btn {
-      background-color: #007acc;
+      background-color: var(--button-bg);
       color: white;
       border: none;
       padding: 10px 16px;
       border-radius: 4px;
       cursor: pointer;
       font-size: 14px;
+      transition: 0.2s;
     }
 
     .btn:hover {
-      background-color: #005fa3;
+      background-color: var(--button-hover);
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 15px;
+      left: 15px;
     }
 
     h1 {
-      color: #333;
+      text-align: center;
+      margin-top: 10px;
     }
 
-    /* Feltöltő doboz */
     .upload-box {
-      background-color: #ffffffcc;
+      background-color: var(--box-bg);
       padding: 30px;
       border-radius: 16px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -50,8 +79,8 @@
     }
 
     .custom-file-upload {
-      border: 2px dashed #0077cc;
-      color: #0077cc;
+      border: 2px dashed var(--upload-border);
+      color: var(--upload-border);
       padding: 16px;
       display: inline-block;
       cursor: pointer;
@@ -60,8 +89,8 @@
     }
 
     .custom-file-upload:hover {
-      background-color: #0077cc;
-      color: white;
+      background-color: var(--upload-border);
+      color: var(--upload-hover);
     }
 
     .preview img {
@@ -74,15 +103,16 @@
   </style>
 </head>
 <body>
+  <button class="btn theme-toggle" onclick="toggleTheme()">🌗 Téma</button>
+
   <header>
     <button class="btn" onclick="toggleUpload()">Kép feltöltése</button>
     <button class="btn" onclick="logout()">Kijelentkezés</button>
   </header>
 
   <h1>Üdvözöllek a Dashboardon!</h1>
-  <p>Sikeresen bejelentkeztél.</p>
+  <p style="text-align:center;">Sikeresen bejelentkeztél.</p>
 
-  <!-- Feltöltő szekció -->
   <div class="upload-box" id="uploadSection">
     <h2>Kép feltöltése</h2>
     <label for="file-upload" class="custom-file-upload">
@@ -115,6 +145,10 @@
         reader.readAsDataURL(file);
       }
     });
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+    }
   </script>
 </body>
 </html>
