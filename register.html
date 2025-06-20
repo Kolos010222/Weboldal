@@ -8,8 +8,11 @@
       --primary: #6a00f4;
       --accent: #00c3ff;
       --bg-light: #f4f6ff;
+      --bg-dark: #1a1a2e;
       --text-light: #222;
+      --text-dark: #f5f5f5;
       --box-bg-light: #fff;
+      --box-bg-dark: #2d2d44;
       --shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
@@ -22,6 +25,12 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
     }
 
     .container {
@@ -31,12 +40,22 @@
       box-shadow: var(--shadow);
       width: 320px;
       text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark .container {
+      background: var(--box-bg-dark);
+      color: var(--text-dark);
     }
 
     h2 {
       margin-bottom: 24px;
       font-weight: 700;
       color: var(--primary);
+    }
+
+    body.dark h2 {
+      color: var(--accent);
     }
 
     input[type="text"], input[type="password"] {
@@ -47,7 +66,15 @@
       border: 1px solid #ccc;
       font-size: 16px;
       box-sizing: border-box;
-      transition: border-color 0.3s;
+      transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+      background-color: white;
+      color: black;
+    }
+
+    body.dark input[type="text"], body.dark input[type="password"] {
+      background-color: #44475a;
+      color: white;
+      border-color: #555;
     }
 
     input[type="text"]:focus, input[type="password"]:focus {
@@ -90,9 +117,38 @@
     a:hover {
       text-decoration: underline;
     }
+
+    /* Kicsi, lekerekített fix témaváltó gomb */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: var(--primary);
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s, transform 0.2s;
+      width: auto;
+      min-width: 50px;
+      text-align: center;
+      user-select: none;
+      z-index: 1000;
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent);
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌗</button>
+
   <div class="container">
     <h2>Regisztráció</h2>
     <form onsubmit="register(event)">
@@ -104,6 +160,10 @@
   </div>
 
   <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+    }
+
     function register(event) {
       event.preventDefault();
       const username = document.getElementById('reg-username').value;
