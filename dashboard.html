@@ -6,32 +6,47 @@
   <title>Dashboard</title>
   <style>
     :root {
-      --bg-color: #f2f2f2;
-      --text-color: #333;
-      --box-bg: #ffffffcc;
-      --button-bg: #007acc;
-      --button-hover: #005fa3;
-      --upload-border: #0077cc;
-      --upload-hover: white;
-    }
-
-    body.dark {
-      --bg-color: #1e1e1e;
-      --text-color: #f0f0f0;
-      --box-bg: #2b2b2bcc;
-      --button-bg: #444;
-      --button-hover: #666;
-      --upload-border: #aaa;
-      --upload-hover: #222;
+      --primary: #6a00f4;
+      --primary-dark: #3700b3;
+      --accent: #00c3ff;
+      --background-light: #f0f4ff;
+      --background-dark: #1a1a2e;
+      --text-light: #1a1a1a;
+      --text-dark: #f5f5f5;
+      --box-bg-light: white;
+      --box-bg-dark: #2d2d44;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     body {
-      background: var(--bg-color);
-      color: var(--text-color);
-      font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--background-light);
+      color: var(--text-light);
       transition: 0.3s;
+    }
+
+    body.dark {
+      background-color: var(--background-dark);
+      color: var(--text-dark);
+    }
+
+    .btn {
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+      transform: scale(1.03);
     }
 
     header {
@@ -39,21 +54,6 @@
       justify-content: flex-end;
       gap: 10px;
       margin-bottom: 20px;
-    }
-
-    .btn {
-      background-color: var(--button-bg);
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: 0.2s;
-    }
-
-    .btn:hover {
-      background-color: var(--button-hover);
     }
 
     .theme-toggle {
@@ -68,19 +68,22 @@
     }
 
     .upload-box {
-      background-color: var(--box-bg);
+      background-color: var(--box-bg-light);
       padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      max-width: 400px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      max-width: 450px;
       margin: 30px auto;
       display: none;
     }
 
+    body.dark .upload-box {
+      background-color: var(--box-bg-dark);
+    }
+
     .custom-file-upload {
-      border: 2px dashed var(--upload-border);
-      color: var(--upload-border);
+      border: 2px dashed var(--accent);
+      color: var(--accent);
       padding: 16px;
       display: inline-block;
       cursor: pointer;
@@ -89,8 +92,8 @@
     }
 
     .custom-file-upload:hover {
-      background-color: var(--upload-border);
-      color: var(--upload-hover);
+      background-color: var(--accent);
+      color: white;
     }
 
     .preview img {
@@ -98,12 +101,12 @@
       max-width: 100%;
       max-height: 250px;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      box-shadow: var(--shadow);
     }
   </style>
 </head>
 <body>
-  
+  <button class="btn theme-toggle" onclick="toggleTheme()">🌗 Téma</button>
 
   <header>
     <button class="btn" onclick="toggleUpload()">Kép feltöltése</button>
