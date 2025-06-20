@@ -5,109 +5,122 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bejelentkezés</title>
   <style>
+    :root {
+      --primary: #6a00f4;
+      --primary-dark: #3700b3;
+      --accent: #00c3ff;
+      --bg-light: #f4f6ff;
+      --bg-dark: #1a1a2e;
+      --text-light: #222;
+      --text-dark: #f5f5f5;
+      --box-bg-light: #fff;
+      --box-bg-dark: #2d2d44;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
+      transition: 0.3s;
     }
-    .login-container {
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .login-box {
+      background: var(--box-bg-light);
+      padding: 40px;
+      border-radius: 14px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
       width: 320px;
-    }
-    h2 {
-      margin-bottom: 20px;
       text-align: center;
-      color: #333;
+      transition: 0.3s;
     }
-    label {
-      display: block;
-      margin-bottom: 5px;
-      color: #555;
+
+    body.dark .login-box {
+      background: var(--box-bg-dark);
     }
+
+    .login-box h2 {
+      margin-bottom: 24px;
+    }
+
     input[type="text"],
     input[type="password"] {
       width: 100%;
-      padding: 8px 12px;
-      margin-bottom: 15px;
+      padding: 12px;
+      margin-bottom: 16px;
       border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-      font-size: 14px;
+      border-radius: 8px;
+      font-size: 15px;
     }
-    button {
+
+    .btn {
       width: 100%;
-      background-color: #0066cc;
+      background: linear-gradient(to right, var(--primary), var(--accent));
       color: white;
+      padding: 12px;
       border: none;
-      padding: 10px;
-      border-radius: 4px;
+      border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
+      transition: 0.3s;
     }
-    button:hover {
-      background-color: #004a99;
+
+    .btn:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
     }
-    .message {
-      margin-top: 15px;
-      text-align: center;
-      font-weight: bold;
-    }
-    .error {
-      color: red;
-    }
-    .success {
-      color: green;
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: var(--primary);
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
+  <button class="theme-toggle" onclick="toggleTheme()">🌗 Téma</button>
+
+  <div class="login-box">
     <h2>Bejelentkezés</h2>
-    <form id="loginForm">
-      <label for="username">Felhasználónév</label>
-      <input type="text" id="username" name="username" required />
-      <label for="password">Jelszó</label>
-      <input type="password" id="password" name="password" required />
-      <button type="submit">Belépés</button>
+    <form onsubmit="return login(event)">
+      <input type="text" id="username" placeholder="Felhasználónév" required />
+      <input type="password" id="password" placeholder="Jelszó" required />
+      <button type="submit" class="btn">Belépés</button>
     </form>
-    <div class="message" id="message"></div>
   </div>
 
   <script>
-    const accounts = {
-      admin: "titkos123",
-      user1: "jelszo1",
-      user2: "jelszo2"
-    };
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+    }
 
-    const form = document.getElementById('loginForm');
-    const message = document.getElementById('message');
+    function login(event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const username = form.username.value.trim();
-      const password = form.password.value;
-
-      if(accounts[username] && accounts[username] === password) {
-        message.textContent = 'Sikeres bejelentkezés! Üdv, ' + username + '.';
-        message.className = 'message success';
-
-        // Átirányítás dashboard oldalra 1 másodperc múlva
-        setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 1000);
+      // Példa bejelentkezési ellenőrzés
+      if (username === 'admin' && password === 'jelszo') {
+        window.location.href = 'dashboard.html';
       } else {
-        message.textContent = 'Hibás felhasználónév vagy jelszó!';
-        message.className = 'message error';
+        alert('Hibás adatok!');
       }
-    });
+    }
   </script>
 </body>
 </html>
