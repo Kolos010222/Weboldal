@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <title>Regisztráció</title>
+</head>
+<body>
+  <h2>Regisztráció</h2>
+  <form onsubmit="register(event)">
+    <input type="text" id="reg-username" placeholder="Felhasználónév" required /><br><br>
+    <input type="password" id="reg-password" placeholder="Jelszó" required /><br><br>
+    <button type="submit">Regisztrálok</button>
+  </form>
+  <p>Már van fiókod? <a href="index.html">Bejelentkezés</a></p>
+
+  <script>
+    function register(event) {
+      event.preventDefault();
+      const username = document.getElementById('reg-username').value;
+      const password = document.getElementById('reg-password').value;
+
+      if (localStorage.getItem(username)) {
+        alert("Ez a felhasználónév már létezik!");
+        return;
+      }
+
+      localStorage.setItem(username, password);
+      alert("Sikeres regisztráció!");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
