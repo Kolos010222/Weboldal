@@ -9,36 +9,108 @@
       --primary: #6a00f4;
       --primary-dark: #3700b3;
       --accent: #00c3ff;
-      --background-light: #f0f4ff;
-      --background-dark: #1a1a2e;
-      --text-light: #1a1a1a;
+      --bg-light: #f4f6ff;
+      --bg-dark: #1a1a2e;
+      --text-light: #222;
       --text-dark: #f5f5f5;
-      --box-bg-light: white;
+      --box-bg-light: #fff;
       --box-bg-dark: #2d2d44;
       --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     body {
       margin: 0;
-      padding: 20px;
       font-family: 'Segoe UI', sans-serif;
-      background-color: var(--background-light);
+      background-color: var(--bg-light);
       color: var(--text-light);
+      padding: 20px;
       transition: 0.3s;
     }
 
     body.dark {
-      background-color: var(--background-dark);
+      background-color: var(--bg-dark);
       color: var(--text-dark);
+    }
+
+    /* ----- Felső sáv ----- */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      background: var(--box-bg-light);
+      color: var(--text-light);
+      border-radius: 12px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    body.dark .topbar {
+      background: var(--box-bg-dark);
+      color: var(--text-dark);
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo {
+      height: 40px;
+      width: 40px;
+    }
+
+    .app-name {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .menu {
+      display: flex;
+      gap: 20px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    body.dark .menu a {
+      color: var(--text-dark);
+    }
+
+    .menu a:hover {
+      text-decoration: underline;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .username {
+      font-size: 14px;
     }
 
     .btn {
       background: linear-gradient(to right, var(--primary), var(--accent));
       border: none;
       color: white;
-      padding: 10px 18px;
+      padding: 10px 16px;
       border-radius: 8px;
-      font-size: 15px;
+      font-size: 14px;
       cursor: pointer;
       box-shadow: var(--shadow);
       transition: 0.3s;
@@ -47,19 +119,6 @@
     .btn:hover {
       opacity: 0.9;
       transform: scale(1.03);
-    }
-
-    header {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .theme-toggle {
-      position: absolute;
-      top: 15px;
-      left: 15px;
     }
 
     h1 {
@@ -106,23 +165,38 @@
   </style>
 </head>
 <body>
-  <button class="btn theme-toggle" onclick="toggleTheme()">🌗 Téma</button>
+  <header class="topbar">
+    <div class="logo-box">
+      <img src="https://img.icons8.com/ios-filled/40/6a00f4/code.png" class="logo" alt="Logó">
+      <span class="app-name">RealSoft Weboldal</span>
+    </div>
 
-  <header>
-    <button class="btn" onclick="toggleUpload()">Kép feltöltése</button>
-    <button class="btn" onclick="logout()">Kijelentkezés</button>
+    <nav class="menu">
+      <a href="#">Főoldal</a>
+      <a href="#">Profil</a>
+      <a href="#">Képek</a>
+    </nav>
+
+    <div class="topbar-right">
+      <input type="text" placeholder="Keresés..." class="search" />
+      <span class="username">👤 admin</span>
+      <button class="btn theme-toggle" onclick="toggleTheme()">🌗</button>
+    </div>
   </header>
 
-  <h1>Üdvözöllek a Dashboardon!</h1>
-  <p style="text-align:center;">Sikeresen bejelentkeztél.</p>
+  <h1>Üdvözöllek a Főoldalon!</h1>
+  <p style="text-align:center;">Mostmár köztünk vagy.</p>
 
   <div class="upload-box" id="uploadSection">
     <h2>Kép feltöltése</h2>
-    <label for="file-upload" class="custom-file-upload">
-      Válassz képet
-    </label>
+    <label for="file-upload" class="custom-file-upload">Válassz képet</label>
     <input id="file-upload" type="file" accept="image/*" style="display: none;" />
     <div class="preview" id="preview"></div>
+  </div>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <button class="btn" onclick="toggleUpload()">Kép feltöltése</button>
+    <button class="btn" onclick="logout()">Kijelentkezés</button>
   </div>
 
   <script>
